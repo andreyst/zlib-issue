@@ -20,14 +20,14 @@ A special `all.in` chunk is chunk `0` concatenated with chunk `1`.
 ## Why do I think they are valid?
 1. `mcclient` successfully decompresses input chunks with C's `zlib` without any issues. `*.log` status shows `0` which means Z_OK which means no errors in zlib parlance.
 2. `zlib-flate -uncompress < chunks/all.in` works without any errors under Linux and decompresses to same content. Under Mac OS it also decompresses to same content, but with warning `zlib-flate: WARNING: zlib code -5, msg = input stream is complete but output may still be valid` — which look as expected because chunks do not contain "official" stream end.
-3. Python code in `decompress.py` correctly decompresses with both `all.in` and `0`/`1` chunks with issues.
+3. Python code in `decompress.py` correctly decompresses with both `all.in` and `0`/`1` chunks without any issues.
 
 ## What is the issue with go's zlib?
-See `main.go` — it tries to decompress those chunk, starting with `all.in` and then trying to decompress chunks `0` and `1` step by step.
+See `main.go` — it tries to decompress those chunks, starting with `all.in` and then trying to decompress chunks `0` and `1` step by step.
 
 An attempt to decode `all.in` (`func all()`) somewhat succeeds, at least decompressed data is the same, but zlib reader returns error `flate: corrupt input before offset 446`. 
 
 When trying real-life scenario of decompressing chunk by chunk (`func stream()`), zlib reader decodes first chunk with expected data, but returning an error `flate: corrupt input before offset 32`, and subsequent attempt to decode chunk `1` fails completely.
 
 ## The question
-Is it possible to use go's `zlib` package in some kind of "streaming" mode which is suited for scenario like this? If not, why is that — is it by design? Is it just not implemented yet? What am I missing?
+Is it possible to use go's `zlib` package in some kind of "streaming" mode which is suited for scenario like this? I have asked a question on Stackoverflow about this.
