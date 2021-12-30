@@ -5,6 +5,11 @@ Run:
 1. `go run main.go`
 2. `python3 decompress.py`
 
+## Update
+With careful debugging I was able to see that I have incorrectly passed too large buffer slices which lead to incorrect input buffers being fed to decompression. I'll leave text below for historical reasons.
+
+----
+
 ## What is the issue?
 I cannot decode valid compressed chunks from zlib stream using go's `zlib` package.
 
