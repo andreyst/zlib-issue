@@ -1,6 +1,10 @@
 ## About
 This repository contains code and data for showing an issue I have with go's `zlib` package.
 
+Run:
+1. `go run main.go`
+2. `python3 decompress.py`
+
 ## What is the issue?
 I cannot decode valid compressed chunks from zlib stream using go's `zlib` package.
 
