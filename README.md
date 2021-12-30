@@ -30,4 +30,4 @@ An attempt to decode `all.in` (`func all()`) somewhat succeeds, at least decompr
 When trying real-life scenario of decompressing chunk by chunk (`func stream()`), zlib reader decodes first chunk with expected data, but returning an error `flate: corrupt input before offset 32`, and subsequent attempt to decode chunk `1` fails completely.
 
 ## The question
-Is it possible to use go's `zlib` package in some kind of "streaming" mode which is suited for scenario like this? I have asked a question on Stackoverflow about this.
+Is it possible to use go's `zlib` package in some kind of "streaming" mode which is suited for scenario like this? I have asked a [question](https://stackoverflow.com/questions/70536980) on Stackoverflow about this.
